@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="style.css" />
+        <script src="jquery-3.3.1.min.js"></script>
 		<script type="text/javascript">
 			
 			// This javascript method calls C# by setting the browser 
@@ -19,6 +20,7 @@
 					qs = qs.substring(1);
 
 				location.href = "hybrid:" + elm.name + "?" + qs;
+             
 			}
 
 			// This javascript method is called from C#
@@ -26,12 +28,26 @@
 				var elm = document.getElementById('label');
 				elm.innerHTML = text;
 			}
+            
+        
 		</script>
-	</head>
+        <script type="text/javascript">
+                 // Make sure that the go button doesn't break the functionality.
+                $(document).ready(function() {
+                    $('input').keypress(function(e) {
+                        var code = (e.keyCode ? e.keyCode : e.which);
+                        if ((code == 13) || (code == 10)) {
+                            $(this).blur();
+                            return false;
+                        }
+                    });
+                });
+        </script>
+    </head>
 	<body>
 		<div data-role="page" data-theme="b">
-			<form>
-				
+			<form id="myform">
+
 				<div data-role="content">
 
 					<h1 id="label">@Model.Text</h1>
@@ -45,4 +61,4 @@
 			</form>
 		</div>
 	</body>
-</html>	
+</html>
